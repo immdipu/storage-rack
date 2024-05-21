@@ -24,7 +24,8 @@ func CreateUser(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
+			"message": "missing fields",
+			"error":   err.Error(),
 		})
 		return
 	}
