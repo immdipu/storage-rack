@@ -12,6 +12,7 @@ interface InputWithLabelProps {
   className?: string;
   name: string;
   optional?: boolean;
+  validate: string | undefined;
 }
 
 const InputWithLabel: FC<InputWithLabelProps> = ({
@@ -23,6 +24,7 @@ const InputWithLabel: FC<InputWithLabelProps> = ({
   className,
   name,
   optional = false,
+  validate,
 }) => {
   return (
     <div>
@@ -40,6 +42,14 @@ const InputWithLabel: FC<InputWithLabelProps> = ({
           className
         )}
       />
+      <p
+        className={clsx(
+          "text-red-500 px-1 overflow-hidden transition-all duration-300 ease-in-out",
+          validate ? "h-6" : "h-0"
+        )}
+      >
+        {validate}
+      </p>
     </div>
   );
 };
