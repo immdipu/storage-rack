@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"storagerack/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,9 +14,9 @@ type RequestBody struct {
 }
 
 func CreateUser(c *gin.Context) {
-	var req RequestBody
+	var user models.User
 
-	err := c.ShouldBindBodyWithJSON(&req)
+	err := c.BindJSON(&user)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -24,10 +25,11 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message":  "User created",
-		"username": req.Username,
-		"email":    req.Email,
-	})
-	return
+	count, err :=
+
+		c.JSON(http.StatusOK, gin.H{
+			"message":  "User created",
+			"username": req.Username,
+			"email":    req.Email,
+		})
 }

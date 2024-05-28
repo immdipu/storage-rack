@@ -30,6 +30,7 @@ func DBset() *mongo.Client {
 	fmt.Println("Successfully connected to the mongodb")
 
 	Client = client
+	User = UserData(client, "users")
 
 	return client
 }
@@ -42,4 +43,9 @@ func CloseDB() {
 	}
 
 	fmt.Println("Connected to MongoDb closed.")
+}
+
+func UserData(client *mongo.Client, collectionName string) *mongo.Collection {
+	var collection *mongo.Collection = client.Database("storage-rack").Collection(collectionName)
+	return collection
 }
