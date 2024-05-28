@@ -21,6 +21,7 @@ func CreateUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -28,4 +29,5 @@ func CreateUser(c *gin.Context) {
 		"username": req.Username,
 		"email":    req.Email,
 	})
+	return
 }

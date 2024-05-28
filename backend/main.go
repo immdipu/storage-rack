@@ -8,6 +8,7 @@ import (
 	"github.com/joho/godotenv"
 
 	"storagerack/database"
+	"storagerack/routes"
 )
 
 func main() {
@@ -21,8 +22,7 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-
 	router := gin.Default()
-
+	routes.UserRoutes(router)
 	log.Fatal(router.Run(":" + port))
 }
