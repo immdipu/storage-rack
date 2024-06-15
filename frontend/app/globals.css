@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: "#00A292";
+    --primary-light: "#d1eeec";
+    --secondary: "#e6f6f5";
+    --gray: "#93939f";
+    --dark-gray: "#8f8f9b";
+    --dark-blue: "#384772";
+    --light-green: "#e2f7e8";
+    --light-yellow: "#fff8de";
+    --light-red: "#fee6e6";
+  }
+}
