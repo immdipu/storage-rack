@@ -1,22 +1,33 @@
 ---
 import Logo from "../components/Logo.astro";
 import Layout from "../layouts/Layout.astro";
+import Sign_up from "@/components/Signup/Sign_up";
 ---
 
 <Layout title="Sign up">
-  <div>
-    <Logo />
-  </div>
-  <div class="flex border border-black h-full">
-    <secion class="w-full border border-red-400">
-      <h1 class="text-blue-dark font-bold text-3xl capitalize">
-        Create a new Account
-      </h1>
-      <p>
-        Storage rack gives you secure access to all your files from any device.
-        Create an account and start sharing files today!
-      </p>
-    </secion>
-    <section class="w-full"></section>
+  <div class="h-full flex flex-col px-6">
+    <div>
+      <Logo />
+    </div>
+    <div class="flex min-h-[calc(100vh-40px)] h-full">
+      <secion class="w-full flex items-center">
+        <div class="">
+          <h1
+            class="text-blue-dark leading-[70px] mb-5 font-bold text-6xl capitalize"
+          >
+            Create a
+            <br />
+            <span class="">new Account</span>
+          </h1>
+          <p class="text-xl tracking-wide mr-40">
+            Storage rack gives you secure access to all your files from any
+            device. Create an account and start sharing files today!
+          </p>
+        </div>
+      </secion>
+      <section class="w-full bg-green-100">
+        <Sign_up />
+      </section>
+    </div>
   </div>
 </Layout>
