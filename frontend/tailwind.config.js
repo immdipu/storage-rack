@@ -18,22 +18,27 @@ module.exports = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--primary)",
+          light: "var(--primary-light)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT: "var(--secondary)",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        gray: {
+          DEFAULT: "var(--gray)",
+          light: "var(--gray-light)",
+          dark: "var(--gray-dark)",
+        },
+        blue: {
+          DEFAULT: "var(--blue)",
+          light: "var(--blue-light)",
+          dark: "var(--blue-dark)",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          light: "var(--destructive-light)",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",

@@ -8,10 +8,10 @@
     --primary-light: "#d1eeec";
     --secondary: "#e6f6f5";
     --gray: "#93939f";
-    --dark-gray: "#8f8f9b";
-    --dark-blue: "#384772";
+    --gray-dark: "#8f8f9b";
+    --blue-dark: "#384772";
     --light-green: "#e2f7e8";
-    --light-yellow: "#fff8de";
-    --light-red: "#fee6e6";
+    --yellow-light: "#fff8de";
+    --destructive-light: "#fee6e6";
   }
 }
