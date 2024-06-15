@@ -3,6 +3,20 @@ import InputWithLabel from "../ui/InputWithLabel";
 import { Button } from "../ui/button";
 import { ValidateRegister } from "@/libs/helper";
 
+interface ISigupForm {
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface ISigupFormErrors {
+  fullName?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+}
+
 const Sign_up = () => {
   const [formData, setFormData] = useState<ISigupForm>({
     fullName: "",
@@ -11,6 +25,7 @@ const Sign_up = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState<ISigupFormErrors>({});
+
   const handleChanges = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -19,32 +34,32 @@ const Sign_up = () => {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("submit");
     event.preventDefault();
     const errors = ValidateRegister(formData);
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
     } else {
       setErrors({});
+      // Submit the form or handle successful validation here
     }
   };
 
   return (
     <form className="w-full" onSubmit={handleSubmit}>
-      <div className=" max-w-2xl w-full space-y-5">
+      <div className="max-w-2xl w-full space-y-5">
         <InputWithLabel
           label="Full Name"
           type="text"
-          value=""
+          value={formData.fullName}
           onChange={handleChanges}
           placeholder="Enter your full name"
-          name="full_name"
+          name="fullName"
           validate={errors.fullName}
         />
         <InputWithLabel
           label="Email"
           type="email"
-          value=""
+          value={formData.email}
           onChange={handleChanges}
           placeholder="Enter your email address"
           name="email"
@@ -52,8 +67,8 @@ const Sign_up = () => {
         />
         <InputWithLabel
           label="Password"
-          type="text"
-          value=""
+          type="password"
+          value={formData.password}
           onChange={handleChanges}
           placeholder="Enter your password"
           name="password"
@@ -61,11 +76,11 @@ const Sign_up = () => {
         />
         <InputWithLabel
           label="Password Confirmation"
-          type="text"
-          value=""
+          type="password"
+          value={formData.confirmPassword}
           onChange={handleChanges}
           placeholder="Enter your password again"
-          name="password_confirmation"
+          name="confirmPassword"
           validate={errors.confirmPassword}
         />
         <Button

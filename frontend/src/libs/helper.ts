@@ -2,7 +2,7 @@ export const ValidateRegister = (values: ISigupForm): ISigupFormErrors => {
   const errors: ISigupFormErrors = {};
 
   if (!values.fullName) {
-    errors.fullName = "FullName is required";
+    errors.fullName = "Full Name is required";
   }
   if (!values.email) {
     errors.email = "Email is required";
