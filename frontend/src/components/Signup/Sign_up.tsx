@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import InputWithLabel from "../ui/InputWithLabel";
 import { Button } from "../ui/button";
 import { ValidateRegister } from "@/libs/helper";
+import Spinner from "../ui/Spinner";
 
 interface ISigupForm {
   fullName: string;
@@ -88,6 +89,7 @@ const Sign_up = () => {
           className="w-full text-white rounded-xl !mt-8 text-base"
         >
           Sign up
+          <Spinner className="size-6 mx-3" />
         </Button>
       </div>
     </form>
