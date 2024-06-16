@@ -3,6 +3,7 @@ import InputWithLabel from "../ui/InputWithLabel";
 import { Button } from "../ui/button";
 import { ValidateRegister } from "@/libs/helper";
 import Spinner from "../ui/Spinner";
+import { Signup } from "@/api";
 
 interface ISigupForm {
   fullName: string;
@@ -26,6 +27,9 @@ const Sign_up = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState<ISigupFormErrors>({});
+  const [status, setStatus] = useState<"Loading" | "Error" | "Success" | null>(
+    null
+  );
 
   const handleChanges = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -34,13 +38,23 @@ const Sign_up = () => {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const errors = ValidateRegister(formData);
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
     } else {
       setErrors({});
+      try {
+        setStatus("Loading");
+        const signup = await Signup(formData);
+        if (signup) {
+          setStatus("Success");
+        }
+      } catch (error) {
+        setStatus("Error");
+      }
+
       // Submit the form or handle successful validation here
     }
   };
@@ -85,11 +99,12 @@ const Sign_up = () => {
           validate={errors.confirmPassword}
         />
         <Button
+          disabled={status === "Loading"}
           type="submit"
           className="w-full text-white rounded-xl !mt-8 text-base"
         >
           Sign up
-          <Spinner className="size-6 mx-3" />
+          {status === "Loading" && <Spinner className="size-7 mx-3" />}
         </Button>
       </div>
     </form>
