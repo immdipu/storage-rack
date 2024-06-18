@@ -57,7 +57,7 @@ const Login = () => {
             validate={errors.password}
           />
 
-          <ButtonWithLoader isLoading={true} label="Log in" type="submit" />
+          <ButtonWithLoader isLoading={false} label="Log in" type="submit" />
           <div>
             <p className="text-center text-base text-blue-light">
               Don&apos;t have an account?{" "}

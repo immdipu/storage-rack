@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -16,6 +17,8 @@ type RequestBody struct {
 	Password string `json:"password"`
 	Email    string `json:"email"`
 }
+
+var validate = *validator.New(validator.WithRequiredStructEnabled())
 
 func CreateUser(c *gin.Context) {
 	var user models.User
@@ -70,4 +73,23 @@ func CreateUser(c *gin.Context) {
 		"email":      user.Email,
 		"created_at": user.CreatedAt,
 	})
+}
+
+func GoogleLogin(c *gin.Context) {
+	var googleToken GoogleRequestBody
+
+	err := c.ShouldBindJSON(&googleToken)
+
+	if err != nil {
+		SendError(c, 400, "Missing fields")
+		return
+	}
+
+	err = validate.Struct(googleToken)
+
+	if err != nil {
+		SendError(c, 400, "Missing fields or invalid fields")
+		return
+	}
+
 }
