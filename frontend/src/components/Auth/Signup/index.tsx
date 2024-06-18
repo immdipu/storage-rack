@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import InputWithLabel from "../ui/InputWithLabel";
-import { Button } from "../ui/button";
+import InputWithLabel from "../../ui/InputWithLabel";
+import { Button } from "../../ui/button";
 import { ValidateRegister } from "@/lib/validate";
-import Spinner from "../Loader/Spinner";
+import Spinner from "../../Loader/Spinner";
 import { Signup } from "@/api";
+import ButtonWithLoader from "@/components/Buttons/ButtonWithLoader";
 import GoogleAuthWrapper from "@/shared/GoogleAuthWrapper";
+import Link from "next/link";
 
 const Sign_up = () => {
   const [formData, setFormData] = useState<ISigupForm>({
@@ -81,14 +83,19 @@ const Sign_up = () => {
             name="confirmPassword"
             validate={errors.confirmPassword}
           />
-          <Button
-            disabled={status === "Loading"}
+          <ButtonWithLoader
+            isLoading={status === "Loading"}
+            label="Sign up"
             type="submit"
-            className="w-full text-white rounded-xl !mt-8 text-base"
-          >
-            Sign up
-            {status === "Loading" && <Spinner className="size-7 mx-3" />}
-          </Button>
+          />
+          <div>
+            <p className="text-center text-base text-blue-light">
+              Already have an account?{" "}
+              <Link href="/login">
+                <span className="text-blue-dark font-medium">Login</span>
+              </Link>
+            </p>
+          </div>
         </div>
       </form>
     </GoogleAuthWrapper>
