@@ -12,7 +12,7 @@ const page = () => {
         <section className="w-full flex items-center px-10">
           <div className="">
             <h1 className="text-blue-dark text-center md:text-left md:leading-[70px] mt-9 md:mt-0 mb-5 font-bold text-4xl md:text-6xl capitalize">
-              Create a<span className="">new Account</span>
+              Create a <span className="">new Account</span>
             </h1>
             <p className="text-xl tracking-wide md:mr-40 text-center md:text-left">
               Storage rack gives you secure access to all your files from any

@@ -21,3 +21,17 @@ interface ILoginFormErrors {
   email?: string;
   password?: string;
 }
+
+interface ISigupForm {
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface ISigupFormErrors {
+  fullName?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+}
