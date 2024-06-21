@@ -6,7 +6,7 @@ interface initialStateProps {
   isUserAuthenticated: boolean;
   token: string | null;
   id: string | null;
-  profilePic: string | null;
+  picture: string | null;
   vefified: boolean;
 }
 
@@ -16,7 +16,7 @@ const initialState: initialStateProps = {
   isUserAuthenticated: false,
   token: null,
   id: null,
-  profilePic: null,
+  picture: null,
   vefified: false,
 };
 
@@ -24,13 +24,13 @@ export const userSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    LoggedIn: (state, action: PayloadAction<loginResponseTypes>) => {
+    LoggedIn: (state, action: PayloadAction<Iuser>) => {
       state.fullName = action.payload.fullName;
       state.isUserAuthenticated = true;
-      state.profilePic = action.payload.profilePic;
+      state.picture = action.payload.picture;
       state.username = action.payload.username;
       state.id = action.payload._id;
-      state.vefified = action.payload.verified;
+      state.vefified = action.payload.signwithgoogle;
       if (action.payload.token) {
         localStorage.setItem("token", action.payload.token);
       }
@@ -39,7 +39,7 @@ export const userSlice = createSlice({
     LoggedOut: (state) => {
       state.fullName = null;
       state.id = null;
-      state.profilePic = null;
+      state.picture = null;
       state.username = null;
       state.isUserAuthenticated = false;
       localStorage.removeItem("token");

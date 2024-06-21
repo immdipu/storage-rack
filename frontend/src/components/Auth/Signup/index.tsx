@@ -17,9 +17,6 @@ const Sign_up = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState<ISigupFormErrors>({});
-  const [status, setStatus] = useState<"Loading" | "Error" | "Success" | null>(
-    null
-  );
 
   const handleChanges = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({

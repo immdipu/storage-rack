@@ -12,12 +12,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type RequestBody struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Email    string `json:"email"`
-}
-
 var validate = *validator.New(validator.WithRequiredStructEnabled())
 
 func CreateUser(c *gin.Context) {
@@ -68,28 +62,90 @@ func CreateUser(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"_id":        user.ID,
-		"firstName":  user.FirstName,
-		"lastName":   user.LastName,
+		"fullname":   user.FullName,
 		"email":      user.Email,
 		"created_at": user.CreatedAt,
 	})
 }
 
 func GoogleLogin(c *gin.Context) {
-	var googleToken GoogleRequestBody
+	var googleData models.User
 
-	err := c.ShouldBindJSON(&googleToken)
+	err := c.ShouldBindJSON(&googleData)
+
+	uniquename := GenerateUniqueUsername("dipu")
 
 	if err != nil {
 		SendError(c, 400, "Missing fields")
 		return
 	}
 
-	err = validate.Struct(googleToken)
+	err = validate.Struct(googleData)
 
 	if err != nil {
 		SendError(c, 400, "Missing fields or invalid fields")
 		return
 	}
+
+	count, errr := database.User.CountDocuments(c, bson.M{"email": googleData.Email})
+
+	if errr != nil {
+		SendError(c, 400, "Something went wrong, Please try again")
+		return
+	}
+
+	if count > 0 {
+
+		var user models.User
+
+		err = database.User.FindOne(c, bson.M{"email": googleData.Email}).Decode(&user)
+
+		if err != nil {
+			SendError(c, 400, "Something went wrong, Please try again")
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"message": "Successfully logged in",
+			"data": gin.H{
+				"_id":            user.ID,
+				"fullName":       user.FullName,
+				"email":          user.Email,
+				"username":       user.Username,
+				"token":          "123456",
+				"picture":        googleData.Picture,
+				"signwithgoogle": true,
+				"created_at":     user.CreatedAt,
+			},
+		})
+		return
+	}
+
+	googleData.Username = uniquename
+	googleData.ID = primitive.NewObjectID()
+	googleData.CreatedAt, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
+
+	_, err = database.User.InsertOne(c, googleData)
+
+	if err != nil {
+		SendError(c, 500, "Failed to create new user, Please try again")
+		return
+	}
+
+	c.JSON(http.StatusAccepted, gin.H{
+		"succes":  true,
+		"message": "Successfully registered. Welcome to StorageRack",
+		"data": gin.H{
+			"_id":            googleData.ID,
+			"fullName":       googleData.FullName,
+			"email":          googleData.Email,
+			"username":       googleData.Username,
+			"token":          "123456",
+			"picture":        googleData.Picture,
+			"signwithgoogle": true,
+			"created_at":     googleData.CreatedAt,
+		},
+	})
 
 }

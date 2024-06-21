@@ -8,6 +8,6 @@ import (
 
 func UserRoutes(router *gin.Engine) {
 	router.POST("/api/signup", controllers.CreateUser)
-	router.POST("api/googlelogin", controllers.GoogleLogin)
+	router.POST("api/google-login", controllers.GoogleLogin)
 
 }

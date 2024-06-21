@@ -1,8 +1,11 @@
 interface Iuser {
   _id: string;
+  created_at: string;
+  email: string;
   fullName: string;
-  username: string;
-  email?: string;
+  picture: string;
+  signwithgoogle: boolean;
   token: string;
+  username: string;
   authenticated: boolean;
 }

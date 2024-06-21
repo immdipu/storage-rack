@@ -1,5 +1,8 @@
 package controllers
 
 type GoogleRequestBody struct {
-	Token string `json:"token" validate:"required,alphanum,min=10,max=1000"`
+	Email    string `json:"email" validate:"required,email"`
+	FullName string `json:"name" validate:"required"`
+	Picture  string `json:"picture"`
+	Username string `json:"username"`
 }
