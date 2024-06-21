@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { Toaster } from "react-hot-toast";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 interface SearchContextProps {
   searchTerm: string;
@@ -43,6 +44,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           <SearchContext.Provider value={searchContextValue}>
             <GoogleOAuthProvider clientId="999403015017-rodh8011hs8r1l0tjlakeidj4vnu1u53.apps.googleusercontent.com">
               <Toaster />
+              <Sidebar />
               {children}
             </GoogleOAuthProvider>
           </SearchContext.Provider>
