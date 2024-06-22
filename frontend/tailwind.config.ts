@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        jost: ["Jost", "sans-serif"],
+      },
       colors: {
         primary: {
           DEFAULT: "var(--primary)",

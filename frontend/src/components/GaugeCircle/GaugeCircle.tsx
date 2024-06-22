@@ -28,13 +28,6 @@ export default function GaugeCircle({
     damping: 10,
     mass: 1,
   };
-  const primaryCircleVariants = {
-    hidden: { strokeDasharray: `0 ${circumference}` },
-    visible: {
-      strokeDasharray: `calc(${currentPercent} * ${percentPx}) ${circumference}`,
-      transition: springTransition,
-    },
-  };
 
   return (
     <div
@@ -115,9 +108,9 @@ export default function GaugeCircle({
       </svg>
       <span
         data-current-value={currentPercent}
-        className="duration-[var(--transition-length)] text-3xl delay-[var(--delay)] absolute inset-0 m-auto h-fit w-fit ease-linear animate-in fade-in"
+        className="duration-[var(--transition-length)] font-jost  text-blue-dark text-2xl font-bold delay-[var(--delay)] absolute inset-0 m-auto h-fit w-fit ease-linear animate-in fade-in"
       >
-        {currentPercent}
+        {currentPercent}%
       </span>
     </div>
   );
