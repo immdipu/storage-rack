@@ -6,10 +6,12 @@ import React from "react";
 const page = () => {
   return (
     <SidebarLayout>
-      <div className="px-10 mt-2">
-        <Search />
+      <div className=" flex">
+        <div className="px-10 mt-8 w-[calc(100%-290px)]">
+          <Search />
+        </div>
+        <RightSidebar />
       </div>
-      <RightSidebar />
     </SidebarLayout>
   );
 };

@@ -1,10 +1,12 @@
-import UserProfileDropdown from "@/app/userProfileDropdown/UserProfileDropdown";
+import UserProfileDropdown from "@/components/userProfileDropdown/UserProfileDropdown";
 import React from "react";
+import UsageCard from "../UsageCard/UsageCard";
 
 const RightSidebar = () => {
   return (
-    <div className="fixed right-0 w-[290px] bg-white top-0 bottom-0">
+    <div className="  w-[290px] bg-white ">
       <UserProfileDropdown />
+      <UsageCard />
     </div>
   );
 };

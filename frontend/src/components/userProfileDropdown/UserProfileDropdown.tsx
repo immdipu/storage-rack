@@ -12,7 +12,7 @@ import { ChevronDown } from "lucide-react";
 
 const UserProfileDropdown = () => {
   return (
-    <div className="mt-8 px-5">
+    <div className="mt-8 px-5 select-none">
       <DropdownMenu>
         <DropdownMenuTrigger className="border py-2 outline-none hover:shadow-sm justify-between px-2 w-full rounded-xl flex items-center">
           <div className="flex gap-2 items-center">
