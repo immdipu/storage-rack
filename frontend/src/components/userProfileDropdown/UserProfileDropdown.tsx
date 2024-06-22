@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -9,8 +10,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
+import { useAppSelector } from "@/hooks/reduxhooks";
 
 const UserProfileDropdown = () => {
+  const { fullName, id } = useAppSelector((state) => state.user);
+
+  console.log("fullName", fullName);
+
   return (
     <div className="mt-8  select-none">
       <DropdownMenu>
@@ -26,7 +32,7 @@ const UserProfileDropdown = () => {
                   Hello!
                 </h5>
                 <h3 className="text-start line-clamp-1 text-blue-dark text-sm font-medium">
-                  Dipu Chaurasiya
+                  {fullName}
                 </h3>
               </div>
             </div>
@@ -36,13 +42,13 @@ const UserProfileDropdown = () => {
             <ChevronDown size={20} />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-full ">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuContent className="w-full bg-white">
+          <DropdownMenuLabel className="w-full">My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem className="w-full">Profile</DropdownMenuItem>
           <DropdownMenuItem>Billing</DropdownMenuItem>
           <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuItem>Subscription</DropdownMenuItem>
+          <DropdownMenuItem>Logout</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

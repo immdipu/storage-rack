@@ -39,8 +39,11 @@ const GoogleAuthWrapper: FC<GoogleAuthWrapperProps> = ({ children }) => {
           onSuccess={(credentialResponse) => {
             if (credentialResponse.credential) {
               const token = credentialResponse.credential;
-              const decodedToken = jwtDecode(token);
-              GoogleLoginMutate.mutate(decodedToken);
+              const decodedToken: any = jwtDecode(token);
+              GoogleLoginMutate.mutate({
+                ...decodedToken,
+                fullName: decodedToken.name,
+              });
             }
           }}
         />

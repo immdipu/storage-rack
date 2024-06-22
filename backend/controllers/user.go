@@ -28,9 +28,6 @@ func CreateUser(c *gin.Context) {
 	}
 
 	count, err := database.User.CountDocuments(c, bson.M{"email": user.Email})
-
-	println(count)
-
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Something went wrong. Please try again!",
