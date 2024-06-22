@@ -1,3 +1,4 @@
+import RightSidebar from "@/components/RightSidebar/RightSidebar";
 import Search from "@/components/Search/Search";
 import SidebarLayout from "@/layout/SidebarLayout";
 import React from "react";
@@ -8,6 +9,7 @@ const page = () => {
       <div className="px-10 mt-2">
         <Search />
       </div>
+      <RightSidebar />
     </SidebarLayout>
   );
 };
