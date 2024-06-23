@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { Toaster } from "react-hot-toast";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import { GoogleDriveContextProvider } from "./GoogleDriveContext";
 
 interface SearchContextProps {
   searchTerm: string;
@@ -28,7 +29,6 @@ const getSearchResult = async (query: string) => {};
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [showSider, setShowSidebar] = useState(false);
-  const path = usePathname();
 
   const searchContextValue: SearchContextProps = {
     searchTerm,
@@ -42,11 +42,13 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       <QueryClientProvider client={queryClient}>
         <PersistGate loading={null} persistor={persistor}>
           <SearchContext.Provider value={searchContextValue}>
-            <GoogleOAuthProvider clientId="999403015017-rodh8011hs8r1l0tjlakeidj4vnu1u53.apps.googleusercontent.com">
-              <Toaster />
-              <Sidebar />
-              {children}
-            </GoogleOAuthProvider>
+            <GoogleDriveContextProvider>
+              <GoogleOAuthProvider clientId="999403015017-rodh8011hs8r1l0tjlakeidj4vnu1u53.apps.googleusercontent.com">
+                <Toaster />
+                <Sidebar />
+                {children}
+              </GoogleOAuthProvider>
+            </GoogleDriveContextProvider>
           </SearchContext.Provider>
         </PersistGate>
       </QueryClientProvider>
