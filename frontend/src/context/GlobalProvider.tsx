@@ -4,12 +4,14 @@ import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { usePathname } from "next/navigation";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { Toaster } from "react-hot-toast";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import { GoogleDriveContextProvider } from "./GoogleDriveContext";
+import dynamic from "next/dynamic";
+const GoogleDriveContextProvider = dynamic(
+  () => import("@/context/GoogleDriveContext")
+);
 
 interface SearchContextProps {
   searchTerm: string;

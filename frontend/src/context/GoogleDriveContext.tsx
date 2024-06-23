@@ -1,3 +1,4 @@
+"use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { gapi } from "gapi-script";
 
@@ -6,14 +7,17 @@ interface GoogleDriveContextProps {
   signIn: () => void;
 }
 
-const GoogleDriveContext = createContext<GoogleDriveContextProps | null>(null);
+const GoogleDriveContext = createContext<GoogleDriveContextProps | undefined>(
+  undefined
+);
+
 const DISCOVERY_DOCS = [
   "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
 ];
 
 const SCOPES = "https://www.googleapis.com/auth/drive";
 
-export const GoogleDriveContextProvider = ({
+const GoogleDriveContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
@@ -36,6 +40,16 @@ export const GoogleDriveContextProvider = ({
     gapi.auth2.getAuthInstance().signIn();
   };
 
+  const getStorageQuota = () => {
+    return gapi.client.drive.about
+      .get({
+        fields: "storageQuota",
+      })
+      .then((response: any) => {
+        console.log("storage quota", response.result.storageQuota);
+      });
+  };
+
   return (
     <GoogleDriveContext.Provider value={{ isSignedIn, signIn }}>
       {children}
@@ -43,10 +57,15 @@ export const GoogleDriveContextProvider = ({
   );
 };
 
-export const useGoogleDriveContext = () => {
-  if (!GoogleDriveContext)
+export const useGDrive = () => {
+  const googleDriveContext = useContext(GoogleDriveContext);
+  if (!googleDriveContext) {
     throw new Error(
-      "useGoogleDriveContext must be used within a GoogleDriveContextProvider"
+      "useGoogleDriveContext must be used within GoogleDriveContextProvider"
     );
-  return useContext(GoogleDriveContext);
+  }
+
+  return googleDriveContext;
 };
+
+export default GoogleDriveContextProvider;
