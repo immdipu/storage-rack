@@ -1,9 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import GaugeCircle from "../GaugeCircle/GaugeCircle";
+import { useGDrive } from "@/context/GoogleDriveContext";
 
 const UsageCard = () => {
-  const [value, setValue] = useState(25);
+  const [value, setValue] = useState(0);
+  const { getStorageQuota, isSignedIn } = useGDrive();
+
+  useEffect(() => {
+    if (isSignedIn) {
+      getStorageQuota().then((response: any) => {
+        console.log("quota", response);
+      });
+    }
+  }, [isSignedIn]);
 
   return (
     <div className="bg-secondary rounded-3xl  grid place-content-center py-8">
