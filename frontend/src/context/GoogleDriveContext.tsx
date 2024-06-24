@@ -6,6 +6,7 @@ interface GoogleDriveContextProps {
   isSignedIn: boolean;
   signIn: () => void;
   getStorageQuota: () => any;
+  loading: boolean;
 }
 
 const GoogleDriveContext = createContext<GoogleDriveContextProps | undefined>(
@@ -24,9 +25,11 @@ const GoogleDriveContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const initClient = () => {
+      setLoading(true);
       gapi.client
         .init({
           apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -38,13 +41,21 @@ const GoogleDriveContextProvider = ({
           const authInstance = gapi.auth2.getAuthInstance();
           setIsSignedIn(authInstance.isSignedIn.get());
           authInstance.isSignedIn.listen(setIsSignedIn);
+          setLoading(false);
         });
     };
     gapi.load("client:auth2", initClient);
   }, []);
 
   const signIn = () => {
-    gapi.auth2.getAuthInstance().signIn();
+    setLoading(true);
+    gapi.auth2
+      .getAuthInstance()
+      .signIn()
+      .then(() => {
+        setIsSignedIn(true);
+        setLoading(false);
+      });
   };
 
   const getStorageQuota = () => {
@@ -55,7 +66,7 @@ const GoogleDriveContextProvider = ({
 
   return (
     <GoogleDriveContext.Provider
-      value={{ isSignedIn, signIn, getStorageQuota }}
+      value={{ isSignedIn, signIn, getStorageQuota, loading }}
     >
       {children}
     </GoogleDriveContext.Provider>

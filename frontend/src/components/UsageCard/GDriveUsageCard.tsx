@@ -1,10 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect, useState } from "react";
 import GaugeCircle from "../GaugeCircle/GaugeCircle";
 import { useGDrive } from "@/context/GoogleDriveContext";
 import { bytesToGB } from "@/lib/utils";
+import ConnectGDrive from "../Buttons/ConnectGDrive";
 
-const UsageCard = () => {
+const GDriveUsageCard = () => {
   const [memory, setMemory] = useState({
     total: 0,
     usage: 0,
@@ -21,14 +23,16 @@ const UsageCard = () => {
         const total = bytesToGB(storage?.limit);
         const usage = bytesToGB(storage?.usage);
 
-        console.log(response.limit);
-
         const value = parseFloat(((usage / total) * 100).toFixed(2));
         setValue(value);
         setMemory({ total, usage });
       });
     }
   }, [isSignedIn]);
+
+  if (!isSignedIn) {
+    return <ConnectGDrive />;
+  }
 
   return (
     <div className="bg-secondary rounded-3xl  grid place-content-center py-8">
@@ -58,4 +62,4 @@ const UsageCard = () => {
   );
 };
 
-export default UsageCard;
+export default GDriveUsageCard;
