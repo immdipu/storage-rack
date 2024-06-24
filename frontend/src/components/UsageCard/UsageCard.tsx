@@ -2,15 +2,30 @@
 import React, { useEffect, useState } from "react";
 import GaugeCircle from "../GaugeCircle/GaugeCircle";
 import { useGDrive } from "@/context/GoogleDriveContext";
+import { bytesToGB } from "@/lib/utils";
 
 const UsageCard = () => {
+  const [memory, setMemory] = useState({
+    total: 0,
+    usage: 0,
+  });
   const [value, setValue] = useState(0);
+
   const { getStorageQuota, isSignedIn } = useGDrive();
 
   useEffect(() => {
     if (isSignedIn) {
       getStorageQuota().then((response: any) => {
-        console.log("quota", response);
+        const storage = response?.result.storageQuota;
+
+        const total = bytesToGB(storage?.limit);
+        const usage = bytesToGB(storage?.usage);
+
+        console.log(response.limit);
+
+        const value = parseFloat(((usage / total) * 100).toFixed(2));
+        setValue(value);
+        setMemory({ total, usage });
       });
     }
   }, [isSignedIn]);
@@ -26,9 +41,14 @@ const UsageCard = () => {
       />
       <section className="mt-4 -ml-6">
         <p className="text-gra">
-          <span className="text-blue-dark font-medium mx-1">77</span>GB{" "}
-          <span className="text-blue-dark font-medium">/</span>{" "}
-          <span className="text-blue-dark font-medium mx-1">1</span>TB
+          <span className="text-blue-dark font-medium mx-1">
+            {memory.usage}
+          </span>
+          GB <span className="text-blue-dark font-medium">/</span>{" "}
+          <span className="text-blue-dark font-medium mx-1">
+            {memory.total}
+          </span>
+          GB
         </p>
         <p className="text-sm font-light text-gray-dark mt-1">
           Available storage

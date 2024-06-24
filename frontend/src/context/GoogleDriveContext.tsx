@@ -48,13 +48,9 @@ const GoogleDriveContextProvider = ({
   };
 
   const getStorageQuota = () => {
-    return gapi.client.drive.about
-      .get({
-        fields: "storageQuota",
-      })
-      .then((response: any) => {
-        console.log("storage quota", response.result.storageQuota);
-      });
+    return gapi.client.drive.about.get({
+      fields: "storageQuota",
+    });
   };
 
   return (
