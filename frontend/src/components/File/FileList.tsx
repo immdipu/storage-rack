@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { bytesFormat } from "@/lib/utils";
 import FileIcon from "@/icons/FileIcon";
+import { Ellipsis } from "lucide-react";
+import OptionDropdown from "./OptionDropdown";
 
 const FileList: FC<IFile> = ({
   createdTime,
@@ -14,7 +16,7 @@ const FileList: FC<IFile> = ({
   thumbnailLink,
 }) => {
   return (
-    <div className=" h-14 hover:bg-neutral-100 items-center grid grid-cols-4">
+    <div className=" h-14 hover:bg-neutral-100 items-center grid grid-cols-5">
       <Avatar className="h-full  w-12 rounded-none py-1 pl-1 object-cover">
         <AvatarImage src={thumbnailLink} />
         <AvatarFallback className="bg-blue-100 rounded-lg">
@@ -41,6 +43,11 @@ const FileList: FC<IFile> = ({
             </Avatar>
           );
         })}
+      </div>
+      <div className="w-full flex justify-end px-4">
+        <OptionDropdown>
+          <Ellipsis />
+        </OptionDropdown>
       </div>
     </div>
   );
