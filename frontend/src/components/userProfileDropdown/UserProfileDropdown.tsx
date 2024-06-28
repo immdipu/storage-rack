@@ -15,8 +15,6 @@ import { useAppSelector } from "@/hooks/reduxhooks";
 const UserProfileDropdown = () => {
   const { fullName, id } = useAppSelector((state) => state.user);
 
-  console.log("fullName", fullName);
-
   return (
     <div className="mt-8  select-none">
       <DropdownMenu>

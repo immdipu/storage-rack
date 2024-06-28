@@ -8,6 +8,7 @@ interface GoogleDriveContextProps {
   signOut: () => void;
   getStorageQuota: () => any;
   loading: boolean;
+  getRecentsFiles: () => any;
 }
 
 const GoogleDriveContext = createContext<GoogleDriveContextProps | undefined>(
@@ -70,9 +71,32 @@ const GoogleDriveContextProvider = ({
     setIsSignedIn(false);
   };
 
+  const getRecentsFiles = () => {
+    return gapi.client.drive.files.list({
+      pageSize: 10,
+      fields:
+        "nextPageToken, files(id, name, size, thumbnailLink, hasThumbnail, starred, createdTime, owners ) ",
+      orderBy: "modifiedTime desc",
+    });
+  };
+
+  const getSingleFile = (fileId: string) => {
+    return gapi.client.drive.files.get({
+      fileId: fileId,
+      fields: "id, name, mimeType, webViewLink, iconLink",
+    });
+  };
+
   return (
     <GoogleDriveContext.Provider
-      value={{ isSignedIn, signIn, getStorageQuota, loading, signOut }}
+      value={{
+        isSignedIn,
+        signIn,
+        getStorageQuota,
+        loading,
+        signOut,
+        getRecentsFiles,
+      }}
     >
       {children}
     </GoogleDriveContext.Provider>

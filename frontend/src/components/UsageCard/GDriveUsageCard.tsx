@@ -15,7 +15,7 @@ const GDriveUsageCard = () => {
   });
   const [value, setValue] = useState(0);
 
-  const { getStorageQuota, isSignedIn, signOut } = useGDrive();
+  const { getStorageQuota, isSignedIn, signOut, getRecentsFiles } = useGDrive();
 
   useEffect(() => {
     if (isSignedIn) {
@@ -73,6 +73,18 @@ const GDriveUsageCard = () => {
           Available storage
         </p>
       </section>
+      <div>
+        <button
+          onClick={() => {
+            getRecentsFiles().then((response: any) => {
+              console.log(response.result.files);
+            });
+          }}
+          className="bg-blue-dark text-white font-semibold rounded-lg px-4 py-2 mt-4"
+        >
+          Upgrade Storage
+        </button>
+      </div>
     </div>
   );
 };

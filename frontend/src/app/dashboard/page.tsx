@@ -9,6 +9,11 @@ const page = () => {
       <div className=" flex">
         <div className="px-10 mt-8 w-[calc(100%-290px)]">
           <Search />
+          <section className="mt-6">
+            <h2 className="font-jost text-xl font-semibold text-blue-dark">
+              Recent
+            </h2>
+          </section>
         </div>
         <RightSidebar />
       </div>
