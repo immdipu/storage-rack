@@ -75,7 +75,7 @@ const GoogleDriveContextProvider = ({
     return gapi.client.drive.files.list({
       pageSize: 10,
       fields:
-        "nextPageToken, files(id, name, size, thumbnailLink, hasThumbnail, starred, createdTime, owners ) ",
+        "nextPageToken, files(id, name, size, thumbnailLink, hasThumbnail, fileExtension, starred, createdTime, owners ) ",
       orderBy: "modifiedTime desc",
     });
   };

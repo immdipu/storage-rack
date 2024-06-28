@@ -1,3 +1,4 @@
+import RecentFiles from "@/components/RecentFiles/RecentFiles";
 import RightSidebar from "@/components/RightSidebar/RightSidebar";
 import Search from "@/components/Search/Search";
 import SidebarLayout from "@/layout/SidebarLayout";
@@ -13,6 +14,9 @@ const page = () => {
             <h2 className="font-jost text-xl font-semibold text-blue-dark">
               Recent
             </h2>
+            <div>
+              <RecentFiles />
+            </div>
           </section>
         </div>
         <RightSidebar />
