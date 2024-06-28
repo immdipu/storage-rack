@@ -1,6 +1,7 @@
 import UserProfileDropdown from "@/components/userProfileDropdown/UserProfileDropdown";
 import React from "react";
 import GDriveUsageCard from "../UsageCard/GDriveUsageCard";
+import ConnectOneDrive from "../Buttons/ConnectOneDrive";
 
 const RightSidebar = () => {
   return (

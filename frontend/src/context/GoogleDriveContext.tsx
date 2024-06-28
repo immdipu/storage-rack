@@ -5,6 +5,7 @@ import { gapi } from "gapi-script";
 interface GoogleDriveContextProps {
   isSignedIn: boolean;
   signIn: () => void;
+  signOut: () => void;
   getStorageQuota: () => any;
   loading: boolean;
 }
@@ -64,9 +65,14 @@ const GoogleDriveContextProvider = ({
     });
   };
 
+  const signOut = () => {
+    gapi.auth2.getAuthInstance().signOut();
+    setIsSignedIn(false);
+  };
+
   return (
     <GoogleDriveContext.Provider
-      value={{ isSignedIn, signIn, getStorageQuota, loading }}
+      value={{ isSignedIn, signIn, getStorageQuota, loading, signOut }}
     >
       {children}
     </GoogleDriveContext.Provider>

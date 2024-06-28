@@ -13,6 +13,10 @@ const GoogleDriveContextProvider = dynamic(
   () => import("@/context/GoogleDriveContext")
 );
 
+const OneDriveContextProvider = dynamic(
+  () => import("@/context/OneDriveContext")
+);
+
 interface SearchContextProps {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -42,17 +46,19 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <PersistGate loading={null} persistor={persistor}>
-          <SearchContext.Provider value={searchContextValue}>
-            <GoogleDriveContextProvider>
-              <GoogleOAuthProvider clientId="999403015017-rodh8011hs8r1l0tjlakeidj4vnu1u53.apps.googleusercontent.com">
-                <Toaster />
-                <Sidebar />
-                {children}
-              </GoogleOAuthProvider>
-            </GoogleDriveContextProvider>
-          </SearchContext.Provider>
-        </PersistGate>
+        <OneDriveContextProvider>
+          <PersistGate loading={null} persistor={persistor}>
+            <SearchContext.Provider value={searchContextValue}>
+              <GoogleDriveContextProvider>
+                <GoogleOAuthProvider clientId="999403015017-rodh8011hs8r1l0tjlakeidj4vnu1u53.apps.googleusercontent.com">
+                  <Toaster />
+                  <Sidebar />
+                  {children}
+                </GoogleOAuthProvider>
+              </GoogleDriveContextProvider>
+            </SearchContext.Provider>
+          </PersistGate>
+        </OneDriveContextProvider>
       </QueryClientProvider>
     </Provider>
   );
