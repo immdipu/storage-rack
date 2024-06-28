@@ -5,6 +5,7 @@ import GaugeCircle from "../GaugeCircle/GaugeCircle";
 import { useGDrive } from "@/context/GoogleDriveContext";
 import { bytesToGB } from "@/lib/utils";
 import ConnectGDrive from "../Buttons/ConnectGDrive";
+import GoogleDriveIcon from "@/icons/GoogleDriveIcon";
 
 const GDriveUsageCard = () => {
   const [memory, setMemory] = useState({
@@ -36,6 +37,10 @@ const GDriveUsageCard = () => {
 
   return (
     <div className="bg-secondary rounded-3xl  grid place-content-center py-8">
+      <div className="flex items-center gap-2 pb-4 pt-1 -mt-6 left-0 -ml-5">
+        <GoogleDriveIcon className="size-4" />
+        <h3 className="font-medium text-blue-dark">Google Drive</h3>
+      </div>
       <GaugeCircle
         max={100}
         min={0}
