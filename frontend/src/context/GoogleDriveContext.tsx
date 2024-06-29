@@ -9,6 +9,9 @@ interface GoogleDriveContextProps {
   getStorageQuota: () => any;
   loading: boolean;
   getRecentsFiles: () => any;
+  getSingleFile: (fileId: string) => any;
+  downloadFile: (fileId: string) => any;
+  downloadDoc: (fileId: string) => any;
 }
 
 const GoogleDriveContext = createContext<GoogleDriveContextProps | undefined>(
@@ -87,6 +90,20 @@ const GoogleDriveContextProvider = ({
     });
   };
 
+  const downloadFile = (fileId: string) => {
+    return gapi.client.drive.files.get({
+      fileId: fileId,
+      alt: "media",
+    });
+  };
+
+  const downloadDoc = (fileId: string) => {
+    return gapi.client.drive.files.export({
+      fileId: fileId,
+      mimeType: "application/pdf",
+    });
+  };
+
   return (
     <GoogleDriveContext.Provider
       value={{
@@ -96,6 +113,9 @@ const GoogleDriveContextProvider = ({
         loading,
         signOut,
         getRecentsFiles,
+        downloadFile,
+        getSingleFile,
+        downloadDoc,
       }}
     >
       {children}

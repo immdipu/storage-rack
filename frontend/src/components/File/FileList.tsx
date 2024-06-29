@@ -4,6 +4,7 @@ import { bytesFormat } from "@/lib/utils";
 import FileIcon from "@/icons/FileIcon";
 import { Ellipsis } from "lucide-react";
 import OptionDropdown from "./OptionDropdown";
+import { useGDrive } from "@/context/GoogleDriveContext";
 
 const FileList: FC<IFile> = ({
   createdTime,
@@ -15,6 +16,8 @@ const FileList: FC<IFile> = ({
   starred,
   thumbnailLink,
 }) => {
+  const { downloadFile, downloadDoc } = useGDrive();
+
   return (
     <div className=" h-14 hover:bg-neutral-100 items-center grid grid-cols-[3fr,0.7fr,1fr,0.2fr]">
       <div className=" h-full  py-1 flex items-center gap-7 w-full">
@@ -45,9 +48,15 @@ const FileList: FC<IFile> = ({
         })}
       </div>
       <div className="w-fit flex justify-end px-4">
-        <OptionDropdown>
+        {/* <OptionDropdown>
           <Ellipsis />
-        </OptionDropdown>
+        </OptionDropdown> */}
+        <button
+          onClick={() => downloadDoc(id).then((res) => console.log(res))}
+          className="bg-blue-dark text-white px-3 py-1 rounded-md"
+        >
+          Download
+        </button>
       </div>
     </div>
   );
