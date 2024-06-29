@@ -16,21 +16,21 @@ const FileList: FC<IFile> = ({
   thumbnailLink,
 }) => {
   return (
-    <div className=" h-14 hover:bg-neutral-100 items-center grid grid-cols-5">
-      <Avatar className="h-full  w-12 rounded-none py-1 pl-1 object-cover">
-        <AvatarImage src={thumbnailLink} />
-        <AvatarFallback className="bg-blue-100 rounded-lg">
-          <FileIcon className="size-9" />
-        </AvatarFallback>
-      </Avatar>
-      <div>
+    <div className=" h-14 hover:bg-neutral-100 items-center grid grid-cols-[3fr,0.7fr,1fr,0.2fr]">
+      <div className=" h-full  py-1 flex items-center gap-7 w-full">
+        <Avatar className="h-full  w-12 rounded-none  pl-1 object-cover">
+          <AvatarImage src={thumbnailLink} />
+          <AvatarFallback className="bg-blue-100 rounded-lg">
+            <FileIcon className="size-9" />
+          </AvatarFallback>
+        </Avatar>
         <h5 className="font-jost text-blue-dark font-medium text-base">
           {name}
         </h5>
       </div>
-      <div>{bytesFormat(size)}</div>
+      <div className="w-fit">{bytesFormat(size)}</div>
 
-      <div>
+      <div className="w-fit">
         {owners.map((owner, index) => {
           return (
             <Avatar
@@ -44,7 +44,7 @@ const FileList: FC<IFile> = ({
           );
         })}
       </div>
-      <div className="w-full flex justify-end px-4">
+      <div className="w-fit flex justify-end px-4">
         <OptionDropdown>
           <Ellipsis />
         </OptionDropdown>
